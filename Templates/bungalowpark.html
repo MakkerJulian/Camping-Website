@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='bungalowpark.css')}}">
+    <title>bungalowpark</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="contact">Camping Zee en Duin</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Boeken
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="huizen">4-persoons huizen</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="huizen">6-persoons huizen</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="huizen">8-persoons huizen</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex">
+                {% if session['logged_in']== 1%}
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Ingelogd als: {{gebruikersnaam}} </a>
+                <a class="nav-link active" aria-current="page" href="uitloggen">Uitloggen</a>
+                {%endif%}
+                
+                {%if session['logged_in']==0%}
+                <a class="nav-link active" aria-current="page" href="inloggen">Inloggen</a>
+                {%endif%}
+  
+            </form>
+          </div>
+        </div>
+    </nav>
+
+
+    <div class="row" style="text-align: center; margin-left: 18%; margin-right: 15%;" >
+        <div class="card" style="width: 18rem; margin: 20px;">
+            <img src="{{url_for('static', filename='4.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;"">
+            <div class="card-body">
+            <h5 class="card-title">4 Persoons huis</h5>
+            <p class="card-text">Heel mooi huisje.</p>
+            <a href="huizen" class="btn btn-primary">Boeken</a>
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin: 20px;">
+            <img src="{{url_for('static', filename='6.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;"">
+            <div class="card-body">
+            <h5 class="card-title">6 Persoons huis</h5>
+            <p class="card-text">Heel mooi huisje.</p>
+            <a href="huizen" class="btn btn-primary">Boeken</a>
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin: 20px;">
+            <img src="{{url_for('static', filename='8.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
+            <div class="card-body">
+            <h5 class="card-title">8 Persoons huis</h5>
+            <p class="card-text">Heel mooi huisje.</p>
+            <a href="huizen" class="btn btn-primary">Boeken</a>
+            </div>
+        </div>
+    </div>
+    {%for message in huizennamen%}
+        <li>{{message}}</li>
+    {% endfor %}
+</body>
+</html>

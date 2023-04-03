@@ -1,0 +1,25 @@
+body { 
+    background-color: black;
+    background-image: url("homepagebg.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    margin: 0px;
+}
+/*
+#container {
+    height: fit-content;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#bovenbalk {
+    background-color: rgb(209, 43, 179);
+    height: 10%;
+    width: 100%;
+    font-family: cursive;
+    color: yellow;
+
+}
+*/
