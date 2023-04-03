@@ -39,43 +39,30 @@
             </ul>
           </div>
         </nav>
-    
-    <br>
-    <!--Email-->
+    </div>
 
-    <form method="post" action="/ingelogd">
-        {{form.hidden_tag()}}
-        {{form.naam.label}} {{form.naam}}
-        <br>
-        {{form.wachtwoord.label}} {{form.wachtwoord}}
-        <br>
-        {{form.email.label}} {{form.email}}
-        <br>
-        {{form.submit()}}
-    </form>
-
-    <div id="inlogvak" style="width:50%; margin-left: auto; margin-right: auto;">
-        <!--Email-->
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email-adres</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="naam@voorbeeld.com">
-        </div>
- 
     <br>
-    <!--Wachtwoord-->
-    <div class="col-auto">
-        <label for="inputPassword2" class="form-label">Wachtwoord</label>
-        <form action="inloggen.html" method="POST">
-            <input name="wachtwoord" type="password" class="form-control" id="inputPassword2" placeholder="Wachtwoord">
+
+    <!--Inlogvelden-->
+    <div style="width:20%; margin-left: auto; margin-right: auto;">
+        <form method="post" action="/ingelogd">
+            {{form.hidden_tag()}}
+            {{form.naam.label}}
+            <br>
+            {{form.naam}}
+            <br>
+            {{form.wachtwoord.label}} 
+            <br>
+            {{form.wachtwoord}}
+            <br>
+            {{form.email.label}} 
+            <br>
+            {{form.email}}
+            <br><br>
+            {{form.submit()}}
         </form>
     </div>
-    <br>
-    <!--inlogbutton-->
-    <div class="col-auto">
-        <a class="btn btn-primary mb-3" aria-current="page" href="ingelogd">Inloggen</a>
-        <a class="btn btn-primary mb-3" aria-current="page" href="aanmelden">Account aanmaken</a>
-    </div>
-    </div>
-    </div>
+
+    
 </body>
 </html>

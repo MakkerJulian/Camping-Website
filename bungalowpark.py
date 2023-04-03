@@ -6,9 +6,9 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 
 class VotingForm(FlaskForm):
-    naam = StringField('Wat is uw naam?')
-    wachtwoord= StringField('Voer hier je wachtwoord in')
-    email=StringField('Voer hier je e-mail in')
+    naam = StringField('Naam')
+    wachtwoord= StringField('Wachtwoord')
+    email=StringField('E-mail')
     submit = SubmitField('Inloggen')
 
 
