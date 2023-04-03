@@ -52,10 +52,17 @@ def ingelogd():
         else:
             highestid = Klanten.query.all()
             id=(highestid[-1].id+1)
-
+    
     naam=form.naam.data
     wachtwoord=form.wachtwoord.data
     email=form.email.data
+
+    with app.app_context():
+        for x in (Klanten.query.all()):
+            if x.e_mail == email:
+                return 'Email al bekend, probeer opnieuw'
+            
+
     db.session.add_all([Klanten(id, naam, wachtwoord,email)])
     db.session.commit()
 

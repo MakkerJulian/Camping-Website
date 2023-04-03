@@ -41,7 +41,7 @@ class Klanten(db.Model):
         self.e_mail = e_mail
 
     def __str__(self):
-        return str(self.id)
+        return f'{self.id}'
     
 class Types(db.Model):
     __tablename__ = 'Types'
