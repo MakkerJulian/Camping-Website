@@ -47,8 +47,11 @@ def contact():
 def ingelogd():
     form=VotingForm()
     with app.app_context():
-        highestid = Klanten.query.all()
-        id=(highestid[-1].id+1)
+        if Klanten.query.all()==[]:
+            id=1
+        else:
+            highestid = Klanten.query.all()
+            id=(highestid[-1].id+1)
 
     naam=form.naam.data
     wachtwoord=form.wachtwoord.data
