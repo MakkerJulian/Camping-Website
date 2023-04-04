@@ -9,15 +9,12 @@ class VotingForm(FlaskForm):
     naam = StringField('Naam')
     wachtwoord= StringField('Wachtwoord')
     email=StringField('E-mail')
+    submit = SubmitField('Aanmelden')
+
+class InlogFrom(FlaskForm):
+    email = StringField('E-Mail')
+    wachtwoord=StringField('Wachtwoord')
     submit = SubmitField('Inloggen')
-
-
-
-class inloggen(FlaskForm):
-    name = StringField('E-mail')
-    party = SelectField('wachtwoord')
-    submit = SubmitField('Verzenden.')
-
 
 
 @app.route("/")
@@ -25,14 +22,16 @@ def root():
     session['logged_in'] = 0
     return render_template('bungalowpark.html')
 
-@app.route("/inloggen")
+@app.route("/aanmelden")
 def inloggen():
     form = VotingForm()
-    return render_template('inloggen.html', form=form)
+    return render_template('aanmelden.html', form=form)
 
-@app.route("/aanmelden")
+@app.route("/inloggen")
 def aanmelden():
-    return render_template('aanmelden.html')
+    form = InlogFrom()
+    print(form)
+    return render_template('inloggen.html', form=form)
 
 @app.route("/huizen")
 def huizen():
@@ -42,8 +41,13 @@ def huizen():
 def contact():
     return render_template('contact.html')
 
+@app.route("/uitloggen")
+def uitloggen():
+    session['logged_in'] = 0
+    return render_template('bungalowpark.html', gebruikersnaam = '')
 
-@app.route("/ingelogd" , methods=['POST','GET'])
+
+@app.route("/aangemeld" , methods=['POST','GET'])
 def ingelogd():
     form=VotingForm()
     with app.app_context():
