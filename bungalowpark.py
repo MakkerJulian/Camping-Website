@@ -5,6 +5,8 @@ from databasevuller import Klanten, Boekingen, db, app
 import os
 from flask_sqlalchemy import SQLAlchemy
 
+
+#Formulieren
 class VotingForm(FlaskForm):
     naam = StringField('Naam')
     wachtwoord= StringField('Wachtwoord')
@@ -17,15 +19,12 @@ class InlogFrom(FlaskForm):
     submit = SubmitField('Inloggen')
 
 
+#login en log out
+
 @app.route("/")
 def root():
     session['logged_in'] = 0
     return render_template('bungalowpark.html')
-
-@app.route("/aanmelden")
-def inloggen():
-    form = VotingForm()
-    return render_template('aanmelden.html', form=form)
 
 @app.route("/inloggen")
 def aanmelden():
@@ -33,20 +32,38 @@ def aanmelden():
     print(form)
     return render_template('inloggen.html', form=form)
 
-@app.route("/4hui")
-def huizen():
-    return render_template('huizen.html')
-
-@app.route("/contact")
-def contact():
-    return render_template('contact.html')
-
 @app.route("/uitloggen")
 def uitloggen():
     session['logged_in'] = 0
     return render_template('bungalowpark.html', gebruikersnaam = '')
 
+#aanmelden 
+@app.route("/aanmelden")
+def inloggen():
+    form = VotingForm()
+    return render_template('aanmelden.html', form=form)
 
+#Huizen:
+@app.route("/4p")
+def vierp():
+    return render_template('4huis.html')
+
+@app.route("/6p")
+def zesp():
+    return render_template('6huis.html')
+
+@app.route("/8p")
+def achtp():
+    return render_template('8huis.html')
+
+
+@app.route("/contact")
+def contact():
+    return render_template('contact.html')
+
+
+
+#Aanmelden en account aanmaken
 @app.route("/aangemeld" , methods=['POST','GET'])
 def ingelogd():
     form=VotingForm()
@@ -73,6 +90,8 @@ def ingelogd():
     session['logged_in'] = 1
     return render_template('bungalowpark.html', gebruikersnaam=naam)
 
+
+#Runnen
 if __name__=='__main__':
     app.run(debug=True)
 

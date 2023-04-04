@@ -68,6 +68,7 @@ class Boekingen(db.Model):
         self.klanten_id = klanten_id
         self.bungalow_id = bungalow_id 
 
+#Runnen
 if __name__=='__main__':
     with app.app_context():
         db.create_all()
