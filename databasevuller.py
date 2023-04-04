@@ -2,9 +2,12 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-namen = ['Lars', 'Sophie', 'Bram', 'Lotte', 'Thijs', 'Fleur', 'Tim', 'Lisa', 'Daan', 'Eline',
-        'Robin', 'Anouk', 'Milan', 'Kim', 'Sander', 'Emma', 'Casper', 'Floor', 'Jeroen', 'Femke',
-        'Niels', 'Sanne', 'Ruben', 'Eva', 'Jasper', 'Julia', 'Bas', 'Isa', 'Lucas', 'Meike']
+namen = ['De Zonnewijzer', 'De Roos', 'De Hoop', 'De Lelie', 'De Drie Linden', 'De Vlinder',
+                      'De Korenmolen', 'De Eik', 'De Appelboom', 'De Wilg', 'De Berk', 'De Beuk', 'De Esdoorn', 
+                      'De Herberg', 'De Wielewaal', 'De Leeuwerik', 'De Kievit', 'De Nachtegaal', 'De Merel', 'De Zwaluw', 
+                      'De Duif', 'De Koolmees', 'De Putter', 'De Kruisstraat', 'De Klaproos', 'De Tulp', 'De Hyacint', 'De Narcis', 
+                      'De Ridderspoor', 'De Lavendel']
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 

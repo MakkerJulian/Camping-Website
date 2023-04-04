@@ -3,16 +3,16 @@
 {% block inhoud %}
 
 <div style="width:20%; margin-left: auto; margin-right: auto;">
-    <form method="post" action="/bungalowpark.html">
+    <form method="post" action="/ingelogd">
         {{form.hidden_tag()}}
-        <br>
-        {{form.wachtwoord.label}} 
-        <br>
-        {{form.wachtwoord}}
         <br>
         {{form.email.label}} 
         <br>
         {{form.email}}
+        <br>
+        {{form.wachtwoord.label}} 
+        <br>
+        {{form.wachtwoord}}
         <br><br>
         {{form.submit()}}
     </form>

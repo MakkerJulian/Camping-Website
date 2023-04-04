@@ -41,7 +41,7 @@
             </ul>
             <form class="d-flex">
               {% if session['logged_in']== 1%}
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Ingelogd als: {{gebruikersnaam}} </a>
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Ingelogd als: {{session['Naam']}} </a>
                 <a class="nav-link active" aria-current="page" href="uitloggen">Uitloggen</a>
               {%endif%}
                   
