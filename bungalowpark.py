@@ -103,7 +103,9 @@ def achtp():
 def contact():
     return render_template('contact.html')
 
-@app.route(/)
+@app.route('/boeken')
+def boeken():
+    return render_template('boeken.html')
 
 
 
