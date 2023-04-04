@@ -5,7 +5,6 @@ from databasevuller import Klanten, Boekingen, db, app, Huizen
 import os
 from flask_sqlalchemy import SQLAlchemy
 
-
 #Formulieren
 class VotingForm(FlaskForm):
     naam = StringField('Naam')
@@ -105,8 +104,9 @@ def contact():
 
 @app.route('/boeken')
 def boeken():
-    return render_template('boeken.html')
-
+    huisnaam = request.args.get('buttonValue')
+    # Do something with the button value, such as displaying it on the page
+    return render_template('boeken.html', huisnaam=huisnaam)
 
 
 #Aanmelden en account aanmaken
@@ -137,18 +137,15 @@ def aangemeld():
 
     db.session.add_all([Klanten(id, naam, wachtwoord,email)])
     db.session.commit()
-    
-    with app.app_context():
-        for x in (Klanten.query.all()):
-                if x.e_mail == email:
-                    session['Naam']=x.naam
-                    session['Mail']=x.e_mail
-                    session['logged_in'] = 1
+
+    session['Naam']=naam
+    session['Mail']=email
+    session['logged_in'] = 1
         
     return redirect('/')
+
 
 
 #Runnen
 if __name__=='__main__':
     app.run(debug=True)
-

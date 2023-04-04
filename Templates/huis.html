@@ -9,11 +9,16 @@
         <div class="card-body">
             <h5 class="card-title">{{naam}}</h5>
             <p class="card-text">{{naam}} is een heel mooi huis</p>
-            <a href={{naam.split()[1]}} class="btn btn-primary">Boeken</a>
+            <form action="{{ url_for('boeken') }}" method="get">
+                <input type="hidden" name="buttonValue" value={{naam.split()[1]}}>
+                <button type="submit">Boeken</button>
+            </form>
         </div>
     </div>
 
 {% endfor %}
 </div>
 
+
+  
 {% endblock %}
