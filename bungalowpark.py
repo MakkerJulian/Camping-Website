@@ -33,7 +33,7 @@ def aanmelden():
     print(form)
     return render_template('inloggen.html', form=form)
 
-@app.route("/huizen")
+@app.route("/4hui")
 def huizen():
     return render_template('huizen.html')
 
