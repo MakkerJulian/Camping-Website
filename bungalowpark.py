@@ -103,6 +103,8 @@ def achtp():
 def contact():
     return render_template('contact.html')
 
+@app.route(/)
+
 
 
 #Aanmelden en account aanmaken

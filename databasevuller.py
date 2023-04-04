@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 namen = ['De Zonnewijzer', 'De Roos', 'De Hoop', 'De Lelie', 'De Drie Linden', 'De Vlinder',
-                      'De Korenmolen', 'De Eik', 'De Appelboom', 'De Wilg', 'De Berk', 'De Beuk', 'De Esdoorn', 
+                      'De Korenmolen', 'De Erik', 'De Appelboom', 'De Wilg', 'De Berk', 'De Beuk', 'De Esdoorn', 
                       'De Herberg', 'De Wielewaal', 'De Leeuwerik', 'De Kievit', 'De Nachtegaal', 'De Merel', 'De Zwaluw', 
                       'De Duif', 'De Koolmees', 'De Putter', 'De Kruisstraat', 'De Klaproos', 'De Tulp', 'De Hyacint', 'De Narcis', 
                       'De Ridderspoor', 'De Lavendel']
