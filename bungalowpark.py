@@ -20,6 +20,7 @@ class InlogFrom(FlaskForm):
 #login en log out
 @app.route("/")
 def root():
+    session['logged_in'] = 0
     return render_template('bungalowpark.html')
 
 @app.route("/inloggen")
