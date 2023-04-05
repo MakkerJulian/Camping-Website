@@ -1,22 +1,21 @@
-from flask import Flask, render_template, redirect, flash,url_for, request,session
+from flask import Flask, render_template, redirect, flash,url_for, request,session,flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField
 from databasevuller import Klanten, Boekingen, db, app, Huizen
 import os
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash,check_password_hash
+
 
 #Formulieren
 class VotingForm(FlaskForm):
     naam = StringField('Naam')
     wachtwoord= StringField('Wachtwoord')
     email=StringField('E-mail')
-    submit = SubmitField('Aanmelden')
 
 class InlogFrom(FlaskForm):
     email = StringField('E-Mail')
     wachtwoord=StringField('Wachtwoord')
-    submit = SubmitField('Inloggen')
-
 
 #login en log out
 @app.route("/")
@@ -35,22 +34,25 @@ def ingelogd():
     wachtwoord = form.wachtwoord.data
 
     if email == '' or wachtwoord=='':
-        return 'Vul alle velden in om in te loggen'
+        flash('Vul alle velden in om in te loggen')
+        return redirect('inloggen')
     elif '@' not in email or '.' not in email:
-        return 'Geen geldig mailadres opgegeven'
+        flash('Geen geldig mailadres opgegeven')
+        return redirect('inloggen')
     
     with app.app_context():
         for x in (Klanten.query.all()):
             if x.e_mail == email:
-                if x.wachtwoord==wachtwoord:
+                if check_password_hash(x.wachtwoord,wachtwoord):
                     session['logged_in'] = 1
                     session['Naam']=x.naam
                     session['Mail']=x.e_mail
                     return redirect('/')
-                
                 else:
-                    return 'Inloggen Mislukt, wachtwoord hoort niet bij de gegeven mail'
-        return 'Email onbekend, Maak eerst een account aan'
+                    flash('Inloggen Mislukt, wachtwoord hoort niet bij de gegeven mail')
+                    return redirect('inloggen')
+        flash('Email onbekend, Maak eerst een account aan')
+        return redirect('inloggen')
 
 @app.route("/uitloggen")
 def uitloggen():
@@ -127,15 +129,25 @@ def aangemeld():
     
     naam=form.naam.data
     wachtwoord=form.wachtwoord.data
+    hashed_wachtwoord = generate_password_hash(wachtwoord)
+
     email=form.email.data
+
+    if naam == '' or wachtwoord == '' or email =='':
+        flash('Vul alle velden in om je aan te melden')
+        return redirect('aanmelden')
+    elif '@' not in email or '.' not in email:
+        flash('Geen geldig mailadres opgegeven')
+        return redirect('aanmelden')
+
 
     with app.app_context():
         for x in (Klanten.query.all()):
             if x.e_mail == email:
-                return 'Email al bekend, probeer opnieuw'
-            
+                flash('Email al bekend, probeer een andere')
+                return redirect('aanmelden')
 
-    db.session.add_all([Klanten(id, naam, wachtwoord,email)])
+    db.session.add_all([Klanten(id, naam, hashed_wachtwoord,email)])
     db.session.commit()
 
     session['Naam']=naam

@@ -18,7 +18,15 @@
         <br>
         {{form.email}}
         <br><br>
-        {{form.submit()}}
+        <input type = "submit" class = "btn btn-primary" value="Aanmelden">
     </form>
+    <br>
+    {% if get_flashed_messages() != []%}
+    <div class="alert alert-danger" role="alert">
+        {%for message in get_flashed_messages()%}
+        {{message}}
+        {% endfor %}
+    </div>
+    {%endif%}
 </div>
 {% endblock %}

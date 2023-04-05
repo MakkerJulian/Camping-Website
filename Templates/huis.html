@@ -5,13 +5,13 @@
 {% for naam in session['namen']: %}
 
     <div class="card border-secondary mb-3" style="width: 25rem; margin: 20px;">
-        <img src="{{url_for('static', filename='4.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
+        <img src="{{url_for('static', filename=naam.split()[1]+'.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
         <div class="card-body">
             <h5 class="card-title">{{naam}}</h5>
             <p class="card-text">{{naam}} is een heel mooi huis</p>
             <form action="{{ url_for('boeken') }}" method="get">
                 <input type="hidden" name="buttonValue" value={{naam.split()[1]}}>
-                <button type="submit">Boeken</button>
+                <button type="submit" class="btn btn-primary" >Boeken</button>
             </form>
         </div>
     </div>
