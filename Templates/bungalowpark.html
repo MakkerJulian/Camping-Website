@@ -1,9 +1,9 @@
 {% extends "template.html" %}
 
 {% block inhoud %}
-<div class="row" style="text-align: center; margin-left: 18%; margin-right: 15%;" >
+<div class="row" style="text-align: center; margin-left: 18%; margin-right: 18%;" >
   <div class="card border-secondary mb-3" style="width: 18rem; margin: 20px;">
-      <img src="{{url_for('static', filename='4.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;"">
+      <img src="{{url_for('static', filename='4.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
       <div class="card-body">
       <h5 class="card-title">4 Persoons huis</h5>
       <p class="card-text">Heel mooi huisje.</p>
@@ -12,7 +12,7 @@
   </div>
 
   <div class="card border-secondary mb-3" style="width: 18rem; margin: 20px;">
-      <img src="{{url_for('static', filename='6.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;"">
+      <img src="{{url_for('static', filename='6.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
       <div class="card-body">
       <h5 class="card-title">6 Persoons huis</h5>
       <p class="card-text">Heel mooi huisje.</p>
@@ -20,13 +20,27 @@
       </div>
   </div>
 
-  <div class="card border-secondary mb-3" style="width: 18rem; margin: 20px;">
+  <div class="card border-secondary mb-3" style="width: 18rem; margin: 20px; margin-right: 0px;">
       <img src="{{url_for('static', filename='8.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
       <div class="card-body">
       <h5 class="card-title">8 Persoons huis</h5>
       <p class="card-text">Heel mooi huisje.</p>
       <a href="8p" class="btn btn-primary">Boeken</a>
       </div>
+  </div>
+  <br>
+  <div class="card text-center">
+    <div class="card-header">
+      Featured
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+    <div class="card-footer text-muted">
+      2 days ago
+    </div>
   </div>
 </div>
 {% endblock %}
