@@ -47,6 +47,7 @@ def ingelogd():
                     session['logged_in'] = 1
                     session['Naam']=x.naam
                     session['Mail']=x.e_mail
+                    session['id']= x.id
                     return redirect('/')
                 else:
                     flash('Inloggen Mislukt, wachtwoord hoort niet bij de gegeven mail')
@@ -59,6 +60,7 @@ def uitloggen():
     session['logged_in'] = 0
     session['Naam'] = ''
     session['Mail'] = ''
+    session['id']==''
     return redirect('/')
 
 @app.route('/huis')
@@ -104,6 +106,22 @@ def achtp():
 def contact():
     return render_template('contact.html')
 
+@app.route("/boekingen")
+def boekingen():
+    with app.app_context():
+        if Boekingen.query.all()!=[]:
+            boekingen=[]
+            for x in (Boekingen.query.all()):
+                if Boekingen.klanten_id== session['id']:
+                    boekingen.append(x.id)
+            session['boeks']=boekingen
+            return render_template('boekingen.html')
+        session['boeks']=['geen boekingen']
+        return render_template('boekingen.html')
+
+    
+
+
 @app.route('/boeken')
 def boeken():
     huisnaam = request.args.get('buttonValue')
@@ -123,9 +141,11 @@ def aangemeld():
     with app.app_context():
         if Klanten.query.all()==[]:
             id=1
+            session['id']=id
         else:
             highestid = Klanten.query.all()
             id=(highestid[-1].id+1)
+            session['id']=id
     
     naam=form.naam.data
     wachtwoord=form.wachtwoord.data
@@ -153,7 +173,6 @@ def aangemeld():
     session['Naam']=naam
     session['Mail']=email
     session['logged_in'] = 1
-        
     return redirect('/')
 
 

@@ -1,0 +1,11 @@
+{% extends "template.html" %}
+
+{% block inhoud %}
+<ul>
+    {% for id in session['boeks']: %}
+    <li>
+        {{id}}
+    </li>
+{%endfor%}
+</ul>
+{% endblock %}
