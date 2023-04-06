@@ -59,7 +59,7 @@ class Types(db.Model):
 
 #de lastigste
 class Boekingen(db.Model):
-    __tablename__='boekingen'
+    __tablename__='Boekingen'
     id=db.Column(db.Integer,primary_key=True)
     klanten_id= db.Column(db.Integer, db.ForeignKey('Klanten.id'))
     Klanten = db.relationship('Klanten', backref='Boekingen', uselist=False)
@@ -67,9 +67,11 @@ class Boekingen(db.Model):
     stemmer = db.relationship('Huizen', backref='Boekingen', uselist=False)
     weeknummer= db.Column(db.Integer)
     
-    def __init__(self, klanten_id , bungalow_id):
+    def __init__(self, id, klanten_id , bungalow_id, weeknummer):
+        self.id=id 
         self.klanten_id = klanten_id
-        self.bungalow_id = bungalow_id 
+        self.Bungalow_id = bungalow_id 
+        self.weeknummer = weeknummer
 
 #Runnen
 if __name__=='__main__':

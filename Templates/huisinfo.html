@@ -43,11 +43,14 @@
     </div>
   </div>
 
-
-
-<form action="{{ url_for('huisinfo') }}" method="get" style="position: absolute; top: 70%; left: 	10%;">
-  <input type="hidden" name="buttonValue" value="{{huisnaam}}">
-  <button type="submit" class="btn btn-info" style="width: 500%;">Boeken</button>
+<form method="post" action='/reserveren'>
+  {{form.hidden_tag()}}
+  <br>
+  {{form.weeknummer.label(class="col-sm-2 col-form-label")}} 
+  <br>
+  {{form.weeknummer}} 
+  <br>
+  <input type = "submit" class = "btn btn-primary" value="Boeken">
 </form>
 
-{% endblock %}
+  {% endblock %}

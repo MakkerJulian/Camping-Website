@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, flash,url_for, request,session,flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField
+from wtforms import StringField, SelectField, SubmitField, IntegerField
 from databasevuller import Klanten, Boekingen, db, app, Huizen
 import os
 from flask_sqlalchemy import SQLAlchemy
@@ -16,6 +16,9 @@ class VotingForm(FlaskForm):
 class InlogFrom(FlaskForm):
     email = StringField('E-Mail')
     wachtwoord=StringField('Wachtwoord')
+
+class Revervatie(FlaskForm):
+    weeknummer = SelectField('Welke week wilt u op vakantie?',choices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52])
 
 #login en log out
 @app.route("/")
@@ -119,19 +122,39 @@ def boekingen():
         session['boeks']='geen boekingen'
         return render_template('boekingen.html')
 
-    
 
-
-@app.route('/huisinfo')
-def boeken():
+@app.route('/huisinfo' ,  methods=['POST','GET'])
+def huisinfo():
+    form= Revervatie()
     huisnaam = request.args.get('buttonValue')
+    session['huisnaam']= huisnaam
     # Do something with the button value, such as displaying it on the page
-    return render_template('huisinfo.html', huisnaam=huisnaam)
+    return render_template('huisinfo.html', huisnaam=huisnaam, form=form)
 
-@app.route('/boekhuis')
-def boekhuis():
-    huisnaam = request.args.get( 'buttonValue')
-    return render_template('boekhuis.html', huisnaam=huisnaam)
+@app.route('/reserveren', methods=['POST','GET'])
+def reserveren():
+    form = Revervatie()
+    with app.app_context():
+        if Boekingen.query.all()==[]:
+            id=1
+        else:
+            highestid = Boekingen.query.all()
+            id=(highestid[-1].id+1)
+    
+    k_id=session['id']
+
+    huisnaam=session['huisnaam']
+    with app.app_context():
+        for x in (Huizen.query.all()):
+            if huisnaam in x.naam:
+                h_id= x.id
+    
+    wnr=form.weeknummer.data
+
+    db.session.add_all([Boekingen(id, k_id, h_id, wnr)])
+    db.session.commit()
+    return redirect('boekingen')
+
 
 #Aanmelden en account aanmaken
 @app.route("/aanmelden")
