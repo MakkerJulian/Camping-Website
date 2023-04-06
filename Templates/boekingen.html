@@ -2,13 +2,8 @@
 
 {% block inhoud %}
 <ul class="list-group" style="margin: 20px;">  
-    <li class="list-group-item list-group-item-info">A simple info list group item</li>
-    {%if id == 'null'%}
-            <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{id}}</h5>
-            </a>
-    {%else%}
+    <li class="list-group-item list-group-item-info">Boekingen:</li>
+    {%if session['boeks'] !='geen boekingen'%}
         {% for id in session['boeks']: %}
             <a href="#" class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">

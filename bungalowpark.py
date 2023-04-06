@@ -116,18 +116,22 @@ def boekingen():
                     boekingen.append(x.id)
             session['boeks']=boekingen
             return render_template('boekingen.html')
-        session['boeks']=['geen boekingen']
+        session['boeks']='geen boekingen'
         return render_template('boekingen.html')
 
     
 
 
-@app.route('/boeken')
+@app.route('/huisinfo')
 def boeken():
     huisnaam = request.args.get('buttonValue')
     # Do something with the button value, such as displaying it on the page
-    return render_template('boeken.html', huisnaam=huisnaam)
+    return render_template('huisinfo.html', huisnaam=huisnaam)
 
+@app.route('/boekhuis')
+def boekhuis():
+    huisnaam = request.args.get( 'buttonValue')
+    return render_template('boekhuis.html', huisnaam=huisnaam)
 
 #Aanmelden en account aanmaken
 @app.route("/aanmelden")

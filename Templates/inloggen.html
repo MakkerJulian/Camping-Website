@@ -6,15 +6,15 @@
     <form method="post" action="/ingelogd">
         {{form.hidden_tag()}}
         <br>
-        {{form.email.label}} 
+        {{form.email.label(class="col-sm-2 col-form-label")}} 
         <br>
-        {{form.email}}
+        {{form.email(class="form-control")}}
         <br>
-        {{form.wachtwoord.label}} 
+        {{form.wachtwoord.label(class="col-sm-2 col-form-label")}} 
         <br>
-        {{form.wachtwoord}}
+        {{form.wachtwoord(type="password", class="form-control")}}
         <br><br>
-        <input type = "submit" class = "btn btn-primary" value="Inloggen">
+        <input type = "submit" style="width: 100%;" class = "btn btn-primary" value="Inloggen">
     </form>
     {% if get_flashed_messages() != []%}
         <div class="alert alert-danger" role="alert">
@@ -26,10 +26,10 @@
 </div>
 
 
-<br>
+<br><br>
 
 <div class="col-auto", style="margin-left: auto; margin-right: auto; width: 20%;">
-    <a class="btn btn-danger" aria-current="page" href="aanmelden">Account Aanmaken</a>
+    <a class="btn btn-danger" style="width:100%" aria-current="page" href="aanmelden">Account Aanmaken</a>
 </div> 
 
 {% endblock %}
