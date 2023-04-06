@@ -1,45 +1,84 @@
 {% extends "template.html" %}
 
 {% block inhoud %}
-<div class="row" style="text-align: center; margin-left: 18%; margin-right: 18%;" >
-  <div class="card border-secondary mb-3" style="width: 18rem; margin: 20px;">
-      <img src="{{url_for('static', filename='4.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
-      <div class="card-body">
-      <h5 class="card-title">4 Persoons huis</h5>
-      <p class="card-text">Heel mooi huisje.</p>
-      <a href="4p" class="btn btn-primary">Boeken</a>
-      </div>
-  </div>
 
-  <div class="card border-secondary mb-3" style="width: 18rem; margin: 20px;">
-      <img src="{{url_for('static', filename='6.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
-      <div class="card-body">
-      <h5 class="card-title">6 Persoons huis</h5>
-      <p class="card-text">Heel mooi huisje.</p>
-      <a href="6p" class="btn btn-primary">Boeken</a>
-      </div>
-  </div>
-
-  <div class="card border-secondary mb-3" style="width: 18rem; margin: 20px; margin-right: 0px;">
-      <img src="{{url_for('static', filename='8.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
-      <div class="card-body">
-      <h5 class="card-title">8 Persoons huis</h5>
-      <p class="card-text">Heel mooi huisje.</p>
-      <a href="8p" class="btn btn-primary">Boeken</a>
-      </div>
-  </div>
-  <br>
-  <div class="card text-center">
+<!--Jubileum melding-->
+  <div class="card text-center" style="margin: 5%; ">
     <div class="card-header">
-      Featured
+      VROEGBOEKKORTING
     </div>
     <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <h5 class="card-title">6 APRIL TOT 26 JUNI VROEGBOEKKORTING</h5>
+      <img src ="{{url_for('static', filename='party.png')}}" style="float:left ; height: 10%; width: 10%; margin-left: 15%;">
+      <div style="float:left;">
+        <p class="card-text">Van 6 april tot 26 juni hebben wij bij camping Zee en Duin vroegboekkorting.</p>
+        <p class="card-text">Om ons 1 maandig jubileum te vieren trekken wij deze datums door tot bijna aan de zomer. </p>
+        <p class="card-text">Al onze huisjes zijn voor deze gelegenheid gedecoreerd met vlaggen en balonnen.</p>
+      </div>
+      <img src ="{{url_for('static', filename='party.png')}}" style="float:left; height: 10%;width:10%;">
     </div>
-    <div class="card-footer text-muted">
-      2 days ago
+  </div>
+
+<!--Zwembad foto en tekst-->
+<div style="margin: 5%; margin-top: 0; ">
+  <img src ="{{url_for('static', filename='zwembad.png')}}" style="float: left; ">
+  
+  <div class="card text-center" style="float: right; width: 50%; height: 430px; background-color: rgb(176, 210, 230);">
+    <div class="card-header">
+      VROEGBOEKKORTING
+    </div>
+    <br>
+    <h5 class="card-title">Zwembad in aanbouw </h5>
+    <br>
+    <p class="card-text">Komende zomer zal ook ons zwembad in volle glorie openen.</p>
+    <p class="card-text">De verwachtte datum dat het zwembad af is, is geschat rond 3 september</p>
+    <p class="card-text">Wij kijken er met het hele team naar uit u te verwelkomen.</p>
+    <br>
+    <p class="card-text" style="color: brown;">Het zwembad zal toegankelijk zijn vanaf een leeftijd vanaf 5 jaar.</p>
+  </div>
+</div>
+
+
+<!--Kaarten en informatie over huizen-->
+<div style="margin: 5%; margin-top: 35%; width: 100%;">
+  <div class="card text-center" style="margin-top: 17px; float: left; width: 30%; height: 350px; background-color: rgb(243, 251, 154);">
+    <div class="card-header">
+      Huisjes
+    </div>
+    <br>
+    <h5 class="card-title">Bungalows</h5>
+    <br>
+    <p class="card-text">Zee en Duin heeft een aanbod van 30 verschillende bungalows.</p>
+    <p class="card-text">Per aantal personen zijn er 10 huisjes.</p>
+  </div>
+
+
+  <div class="row">
+    <div class="card border-secondary mb-3" style="width: 17rem; margin: 20px;">
+        <img src="{{url_for('static', filename='4.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
+        <div class="card-body">
+        <h5 class="card-title">4 Persoons huis</h5>
+        <p class="card-text">Heel mooi huisje.</p>
+        <a href="4p" class="btn btn-primary">Boeken</a>
+        </div>
+    </div>
+
+    <div class="card border-secondary mb-3" style="width: 17rem; margin: 20px;">
+        <img src="{{url_for('static', filename='6.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
+        <div class="card-body">
+        <h5 class="card-title">6 Persoons huis</h5>
+        <p class="card-text">Heel mooi huisje.</p>
+        <a href="6p" class="btn btn-primary">Boeken</a>
+        </div>
+    </div>
+
+    <div class="card border-secondary mb-3" style="width: 16.5rem; margin: 20px; margin-right: 0px;">
+        <img src="{{url_for('static', filename='8.png')}}" class="card-img-top" style="height: 200px; margin-top: 10px;">
+        <div class="card-body">
+        <h5 class="card-title">8 Persoons huis</h5>
+        <p class="card-text">Heel mooi huisje.</p>
+        <a href="8p" class="btn btn-primary">Boeken</a>
+        </div>
     </div>
   </div>
 </div>
