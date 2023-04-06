@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, flash,url_for, request,session,flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, IntegerField
-from databasevuller import Klanten, Boekingen, db, app, Huizen
+from databasevuller import Klanten, Boekingen, db, app, Huizen, Types
 import os
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash,check_password_hash
@@ -63,7 +63,12 @@ def uitloggen():
     session['logged_in'] = 0
     session['Naam'] = ''
     session['Mail'] = ''
-    session['id']==''
+    session['id']=''
+    session['klanten']=''
+    session['namen']=''
+    session['types']= ''
+    session['huizen']=''
+    session['boeks']=''
     return redirect('/')
 
 @app.route('/huis')
@@ -114,12 +119,25 @@ def boekingen():
     with app.app_context():
         if Boekingen.query.all()!=[]:
             boekingen=[]
-            for x in (Boekingen.query.all()):
-                if Boekingen.klanten_id== session['id']:
-                    boekingen.append(x.id)
+            for x in (Boekingen.query.join(Huizen,Boekingen.Bungalow_id==Huizen.id).add_columns(Boekingen.klanten_id, Huizen.naam).all()):
+                if x.klanten_id == session['id']:
+                    boekingen.append((x.id,x.klanten_id,x.Bungalow_id,x.weeknummer))
             session['boeks']=boekingen
-            return render_template('boekingen.html')
-        session['boeks']='geen boekingen'
+        if Klanten.query.all():
+            klanten=[]
+            for x in (Klanten.query.all()):
+                    klanten.append((x.id,x.naam,x.e_mail))
+            session['klanten']=klanten
+        if Types.query.all():
+            types=[]
+            for x in (Types.query.all()):
+                    types.append((x.id,x.personen,x.weekprijs))
+            session['types']=types
+        if Huizen.query.all():
+            huizen=[]
+            for x in (Huizen.query.all()):
+                    huizen.append((x.id,x.naam,x.type))
+            session['huizen']=huizen
         return render_template('boekingen.html')
 
 

@@ -1,19 +1,27 @@
 {% extends "template.html" %}
 
 {% block inhoud %}
+{{session['boeks']}}
+{{session['klanten']}}
+{{session['huizen']}}
+{{session['types']}}
+
 <ul class="list-group" style="margin: 20px;">  
     <li class="list-group-item list-group-item-info">Boekingen:</li>
-    {%if session['boeks'] !='geen boekingen'%}
-        {% for id in session['boeks']: %}
+    {%if session['boeks'] ==[]%}
+        <a>U heeft geen boekingen</a>
+    {%else%}
+        {% for i in session['boeks']: %}
             <a href="#" class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{id}}</h5>
-                <small class="text-muted">3 days ago</small>
+                <h5 class="mb-1">{{session['huizen'][i[2]-1][1]}}</h5>
+                <small class="text-muted">{{session['types']}}</small>
                 </div>
                 <p class="mb-1">Some placeholder content in a paragraph.</p>
                 <small class="text-muted">And some muted small print.</small>
             </a>
         {%endfor%}
+    
     {%endif%}
 </ul>
 {% endblock %}
