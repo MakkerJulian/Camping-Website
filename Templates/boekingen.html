@@ -21,14 +21,17 @@
                 </div>
                 <div>
                     <p class="mb-1">{{session['types'][i[3]-1][1]}} Persoons huis</p>
-                    <div>
-                        <form method="post" action='' style="text-align: right;">
-                            <input type="submit" class="btn btn-primary" value="Omboeken" style="display: inline-block; width: 48%;">
-                        </form>
-                        <form method="post" action=''style="text-align: left;">
-                            <input type="submit" class="btn btn-primary" value="Annuleren" style="display: inline-block; width: 48%; margin-right: 48%;">
-                        </form>
-                    </div>
+
+
+                    <form action="{{url_for('aanpassen')}}" method="get" style="float: left; margin-left: 20%;" >
+                        <input type="hidden" name="buttonValue" value={{i[0]}}>
+                        <button type="submit" class="btn btn-primary" style="width: 200%;">Aanpassen</button>
+                    </form>
+
+                    <form action="{{url_for('annuleren')}}" method="get" style="float: left; margin-left: 10%;" >
+                        <input type="hidden" name="buttonValue" value={{i[0]}}>
+                        <button type="submit" class="btn btn-primary" style="width: 200%;">Annuleren</button>
+                    </form>
                 </div>
             </a>
         {%endfor%}
