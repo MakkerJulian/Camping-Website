@@ -1,10 +1,12 @@
 {% extends "template.html" %}
 
 {% block inhoud %}
-{{session['boeks']}}
-{{session['klanten']}}
-{{session['huizen']}}
-{{session['types']}}
+
+<!-- i[0] = Boeking ID -->
+<!-- i[1] = Boeking Weeknummer-->
+<!-- i[2] = Huizennaam -->
+<!-- i[3] = Type ID-->
+<!-- session['types'][i[3]-1][1] = Aantal persoons huisje-->
 
 <ul class="list-group" style="margin: 20px;">  
     <li class="list-group-item list-group-item-info">Boekingen:</li>
@@ -14,11 +16,10 @@
         {% for i in session['boeks']: %}
             <a href="#" class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{session['huizen'][i[2]-1][1]}}</h5>
-                <small class="text-muted">{{session['types']}}</small>
+                <h5 class="mb-1">{{i[2]}}</h5>
+                <small class="text-muted">Geboekt voor week {{i[1]}}. Boeking ID: {{i[0]}}</small>
                 </div>
-                <p class="mb-1">Some placeholder content in a paragraph.</p>
-                <small class="text-muted">And some muted small print.</small>
+                <p class="mb-1">{{session['types'][i[3]-1][1]}} Persoons huis</p>
             </a>
         {%endfor%}
     

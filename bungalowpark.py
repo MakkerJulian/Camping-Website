@@ -64,10 +64,8 @@ def uitloggen():
     session['Naam'] = ''
     session['Mail'] = ''
     session['id']=''
-    session['klanten']=''
     session['namen']=''
     session['types']= ''
-    session['huizen']=''
     session['boeks']=''
     return redirect('/')
 
@@ -119,25 +117,20 @@ def boekingen():
     with app.app_context():
         if Boekingen.query.all()!=[]:
             boekingen=[]
-            for x in (Boekingen.query.join(Huizen,Boekingen.Bungalow_id==Huizen.id).add_columns(Boekingen.klanten_id, Huizen.naam).all()):
+            for x in (Boekingen.query.join(Huizen,Boekingen.Bungalow_id==Huizen.id).add_columns(Boekingen.id, 
+                                                                                                Boekingen.klanten_id, 
+                                                                                                Boekingen.weeknummer, 
+                                                                                                Huizen.naam,
+                                                                                                Huizen.type
+                                                                                                ).all()):
                 if x.klanten_id == session['id']:
-                    boekingen.append((x.id,x.klanten_id,x.Bungalow_id,x.weeknummer))
+                    boekingen.append((x.id, x.weeknummer, x.naam,x.type))
             session['boeks']=boekingen
-        if Klanten.query.all():
-            klanten=[]
-            for x in (Klanten.query.all()):
-                    klanten.append((x.id,x.naam,x.e_mail))
-            session['klanten']=klanten
-        if Types.query.all():
-            types=[]
-            for x in (Types.query.all()):
-                    types.append((x.id,x.personen,x.weekprijs))
-            session['types']=types
-        if Huizen.query.all():
-            huizen=[]
-            for x in (Huizen.query.all()):
-                    huizen.append((x.id,x.naam,x.type))
-            session['huizen']=huizen
+        types=[]
+        for x in (Types.query.all()):
+                types.append((x.id,x.personen,x.weekprijs))
+        session['types']=types
+
         return render_template('boekingen.html')
 
 
