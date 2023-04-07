@@ -16,10 +16,20 @@
         {% for i in session['boeks']: %}
             <a href="#" class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{i[2]}}</h5>
-                <small class="text-muted">Geboekt voor week {{i[1]}}. Boeking ID: {{i[0]}}</small>
+                    <h5 class="mb-1">{{i[2]}}</h5>
+                    <small class="text-muted">Geboekt voor week {{i[1]}}. Boeking ID: {{i[0]}}</small>
                 </div>
-                <p class="mb-1">{{session['types'][i[3]-1][1]}} Persoons huis</p>
+                <div>
+                    <p class="mb-1">{{session['types'][i[3]-1][1]}} Persoons huis</p>
+                    <div>
+                        <form method="post" action='' style="text-align: right;">
+                            <input type="submit" class="btn btn-primary" value="Omboeken" style="display: inline-block; width: 48%;">
+                        </form>
+                        <form method="post" action=''style="text-align: left;">
+                            <input type="submit" class="btn btn-primary" value="Annuleren" style="display: inline-block; width: 48%; margin-right: 48%;">
+                        </form>
+                    </div>
+                </div>
             </a>
         {%endfor%}
     
