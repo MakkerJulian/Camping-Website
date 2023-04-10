@@ -119,8 +119,57 @@ eight_person_bungalow = [
     "Deze prachtige bungalow voor 8 personen biedt een luxe verblijf, met een privéterras, een barbecue en tal van recreatiemogelijkheden in de omgeving.",
 ]
 
+four_person_info_list = [
+    "Aantal kamers:  4",
+    "Prijs per week: 200",
+    "Aantal badkamers: 2",
+    "Ligging: In het bosrijk gebied",
+    "Oppervlakte: 100 m²",
+    "Voorzieningen : Volledig ingerichte keuken, woonkamer met open haard, terras met tuinmeubilair, gratis WiFi, TV, privéparkeerplaats",
+    "Capaciteit : Geschikt voor maximaal 4 personen",
+    "Activiteiten in de omgeving: Fietsen, wandelen, vissen, golfen, zwemmen in een nabijgelegen meer",
+    "Huisdieren : Toegestaan tegen een extra vergoeding van €25 per huisdier per week",
+    "Toeristenbelasting :€1,50 per persoon per nacht",
+    "Schoonmaakkosten : €50 per verblijf",
+    "Check-in en check-out : Inchecken vanaf 15:00 uur, uitchecken voor 10:00 uur",
+]
 
+six_person_info_list = [
+    "Aantal kamers: 7",
+    "Aantal badkamers: 2",
+    "Ligging: In het amazone gebied",
+    "Maximaal aantal personen: 6",
+    "Prijs per week : 300",
+    "Bungalow oppervlakte: 120 m2",
+    "Aantal slaapkamers: 3",
+    "Aantal eenpersoonsbedden: 4",
+    "Aantal tweepersoonsbedden: 1",
+    "Huisdieren toegestaan: Ja",
+    "Roken toegestaan: Nee",
+    "Faciliteiten: 3 prachtige slaapkamers, Volledig ingerichte keuken, woonkamer met open haard, terras met tuinmeubilair, gratis WiFi, TV, privéparkeerplaats",
+    "Afstand tot dichtstbijzijnde supermarkt: 2 km",
+    "Toeristenbelasting :€1,50 per persoon per nacht",
+    "Schoonmaakkosten : €50 per verblijf",
+]
 
+eight_person_info_list = [
+    "Aantal kamers: 7",
+    "Aantal badkamers: 2",
+    "Maximaal aantal personen: 8",
+    "Ligging: In het bush bush gebied",
+    "Prijs per week 600",
+    "Bungalow oppervlakte: 150 m2",
+    "Aantal slaapkamers: 5",
+    "Aantal eenpersoonsbedden: 2",
+    "Aantal tweepersoonsbedden: 3",
+    "Huisdieren toegestaan: Nee",
+    "Roken toegestaan: Nee",
+    "Faciliteiten: 5 prachtige slaapkamers, Volledig ingerichte keuken, woonkamer met open haard, terras met tuinmeubilair, gratis WiFi, TV, privéparkeerplaats",
+    "Toeristenbelasting :€1,50 per persoon per nacht",
+    "Schoonmaakkosten : €50 per verblijf",
+    "Afstand tot dichtstbijzijnde supermarkt: 1 km",
+
+]
 
 #login en log out
 @app.route("/")
@@ -268,12 +317,15 @@ def huisinfo():
         if huisnaam in x.naam:
             if x.personen == 4:
                 beschrijving= four_person_bungalow[x.id-1]
+                info=four_person_info_list
             elif x.personen == 6:
                 beschrijving= six_person_bungalow[x.id-11]
+                info=six_person_info_list
             elif x.personen == 8:
                 beschrijving = eight_person_bungalow[x.id-21]
+                info=eight_person_info_list
     # Do something with the button value, such as displaying it on the page
-    return render_template('huisinfo.html', huisnaam=huisnaam, form=form, beschrijving=beschrijving)
+    return render_template('huisinfo.html', huisnaam=huisnaam, form=form, beschrijving=beschrijving,info=info)
 
 @app.route('/reserveren', methods=['POST','GET'])
 def reserveren():
