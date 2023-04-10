@@ -1,7 +1,6 @@
 {% extends "template.html" %}
 
 {% block inhoud %}
-
 <img src="{{ url_for('static', filename=huisnaam ~'.png')}}"  class="card-img-top"  style="width: 45%; height: 450px; object-fit:fill; margin-top: 20px; margin-left: 20px; float: left; border: 5px solid black;">
   
 <div class="accordion" id="accordionPanelsStayOpenExample" style="margin: 20px; width: 50%; height: 80%; float: right;">
@@ -42,7 +41,9 @@
       </h2>
       <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
         <div class="accordion-body">
-          <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          De {{huisnaam}} is nog beschikbaar voor de weken:
+          <br>
+          {{weken}}
         </div>
       </div>
     </div>
@@ -54,6 +55,10 @@
   {{form.weeknummer.label(class="col-sm-2 col-form-label", style="width:40%;")}} 
   <br>
   {{ form.weeknummer(class="form-select", style="width:40%;") }}
+  <br>
+  {{form.lengte.label(class="col-sm-2 col-form-label", style="width:40%;")}} 
+  <br>
+  {{form.lengte(class="form-select", style="width:40%;")}}
   <br>
   <input type = "submit" class = "btn btn-primary" value="Boeken" style="width:40%;">
 </form>

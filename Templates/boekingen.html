@@ -1,11 +1,11 @@
 {% extends "template.html" %}
 
 {% block inhoud %}
-
 <!-- i[0] = Boeking ID -->
 <!-- i[1] = Boeking Weeknummer-->
 <!-- i[2] = Huizennaam -->
 <!-- i[3] = Type ID-->
+<!-- i[4] = lengte -->
 <!-- session['types'][i[3]-1][1] = Aantal persoons huisje-->
 
 <ul class="list-group" style="margin: 20px;">  
@@ -17,7 +17,11 @@
             <a href="#" class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{i[2]}}</h5>
+                    {% if i[4] == 1%}
                     <small class="text-muted">Geboekt voor week {{i[1]}}. Boeking ID: {{i[0]}}</small>
+                    {%else%}
+                    <small class="text-muted">Geboekt voor week {{i[1]}} tot en met {{i[1]+i[4]-1}}. Boeking ID: {{i[0]}}</small>
+                    {%endif%}
                 </div>
                 <div>
                     <p class="mb-1">{{session['types'][i[3]-1][1]}} Persoons huis</p>
