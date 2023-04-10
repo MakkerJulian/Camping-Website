@@ -22,7 +22,6 @@
                 <div>
                     <p class="mb-1">{{session['types'][i[3]-1][1]}} Persoons huis</p>
 
-
                     <form action="{{url_for('aanpassen')}}" method="get" style="float: left; margin-left: 20%;" >
                         <input type="hidden" name="buttonValue" value={{i[0]}}>
                         <button type="submit" class="btn btn-primary" style="width: 200%;">Aanpassen</button>

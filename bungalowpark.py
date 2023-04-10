@@ -217,7 +217,7 @@ def uitloggen():
     session['id']=''
     session['namen']=''
     session['types']= ''
-    session['boeks']=''
+    session['boeks']=[]
     return redirect('/')
 
 @app.route('/huis')
@@ -266,15 +266,26 @@ def contact():
 @app.route('/aanpassen')
 def aanpassen():
     form= Revervatie()
-    huid= int(request.args.get('buttonValue'))
-    with app.app_context():
-        if Boekingen.query.all()!=[]:
-            huisnaam=''
-            for x in (Boekingen.query.join(Huizen,Boekingen.Bungalow_id==Huizen.id).add_columns(Boekingen.id, Huizen.naam,).all()):
-                if x.id == huid:
-                    huisnaam= x.naam
-                    huisnaam=huisnaam.split()[1]
-    return render_template('aanpassen.html',form=form, huisnaam=huisnaam)
+    huid = int(request.args.get('buttonValue'))
+    print(huid)
+    for x in (Boekingen.query.join(Huizen,Boekingen.Bungalow_id==Huizen.id).add_columns(Boekingen.id, Huizen.naam, Huizen.type).all()):
+        if huid == x.id:
+            if x.type==1:
+                beschrijving= four_person_bungalow[x.id-1]
+                info=four_person_info_list
+                naam=x.naam.split()[1]
+            elif x.type == 2:
+                beschrijving= six_person_bungalow[x.id-11]
+                info=six_person_info_list
+                naam=x.naam.split()[1]
+            elif x.type == 3:
+                beschrijving = eight_person_bungalow[x.id-21]
+                info=eight_person_info_list
+                naam=x.naam.split()[1]
+    
+    # Do something with the button value, such as displaying it on the page
+    return render_template('huisinfo.html', huisnaam=naam, form=form, beschrijving=beschrijving,info=info)
+
 
 @app.route('/annuleren')
 def annuleren():
@@ -300,6 +311,8 @@ def boekingen():
                 if x.klanten_id == session['id']:
                     boekingen.append((x.id, x.weeknummer, x.naam,x.type))
             session['boeks']=boekingen
+        else: 
+            session['boeks']=[]
         types=[]
         for x in (Types.query.all()):
                 types.append((x.id,x.personen,x.weekprijs))
@@ -347,7 +360,7 @@ def reserveren():
     
     wnr=form.weeknummer.data
 
-    db.session.add_all([Boekingen(id, k_id, h_id, wnr)])
+    db.session.add_all([Boekingen(id, k_id, h_id, wnr,1)])
     db.session.commit()
     return redirect('boekingen')
 

@@ -66,13 +66,14 @@ class Boekingen(db.Model):
     Bungalow_id= db.Column(db.Integer, db.ForeignKey('Huizen.id'))
     stemmer = db.relationship('Huizen', backref='Boekingen', uselist=False)
     weeknummer= db.Column(db.Integer)
+    lengte= db.Column(db.Integer)
     
-    def __init__(self, id, klanten_id , bungalow_id, weeknummer):
+    def __init__(self, id, klanten_id , bungalow_id, weeknummer,lengte):
         self.id=id 
         self.klanten_id = klanten_id
         self.Bungalow_id = bungalow_id 
         self.weeknummer = weeknummer
-
+        self.lengte= lengte
 #Runnen
 if __name__=='__main__':
     with app.app_context():
