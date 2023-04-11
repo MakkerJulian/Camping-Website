@@ -7,8 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash,check_password_hash
 
 
-#Formulieren
-class VotingForm(FlaskForm):
+#Formulieren voor Aanmelden, Inloggen en Reserveren
+class Aanmeldvorm(FlaskForm):
     naam = StringField('Naam')
     wachtwoord= StringField('Wachtwoord')
     email=StringField('E-mail')
@@ -122,7 +122,6 @@ eight_person_bungalow = [
 
 four_person_info_list = [
     "Aantal kamers:  4",
-    "Prijs per week: 200",
     "Aantal badkamers: 2",
     "Ligging: In het bosrijk gebied",
     "Oppervlakte: 100 m²",
@@ -140,7 +139,6 @@ six_person_info_list = [
     "Aantal badkamers: 2",
     "Ligging: In het amazone gebied",
     "Maximaal aantal personen: 6",
-    "Prijs per week : 300",
     "Bungalow oppervlakte: 120 m2",
     "Aantal slaapkamers: 3",
     "Aantal eenpersoonsbedden: 4",
@@ -158,7 +156,6 @@ eight_person_info_list = [
     "Aantal badkamers: 2",
     "Maximaal aantal personen: 8",
     "Ligging: In het bush bush gebied",
-    "Prijs per week 600",
     "Bungalow oppervlakte: 150 m2",
     "Aantal slaapkamers: 5",
     "Aantal eenpersoonsbedden: 2",
@@ -177,11 +174,13 @@ eight_person_info_list = [
 def root():
     return render_template('bungalowpark.html')
 
+#app route voor inloggen
 @app.route("/inloggen")
 def aanmelden():
     form = InlogFrom()
     return render_template('inloggen.html', form=form)
 
+#app route voor het checken of inloggegevens kloppen
 @app.route("/ingelogd", methods=['POST','GET'])
 def ingelogd():
     form = InlogFrom()
@@ -209,7 +208,8 @@ def ingelogd():
                     return redirect('inloggen')
         flash('Email onbekend, Maak eerst een account aan')
         return redirect('inloggen')
-
+    
+#uitloggen
 @app.route("/uitloggen")
 def uitloggen():
     session['logged_in'] = 0
@@ -221,11 +221,12 @@ def uitloggen():
     session['boeks']=[]
     return redirect('/')
 
+#verzameling van huizen
 @app.route('/huis')
 def huis():
     return render_template('huis.html')
 
-#Huizen:
+#zet in de huis app-route de 4 persoons huizen neer
 @app.route("/4p")
 def vierp():
     session['ap'] = '4'
@@ -237,6 +238,7 @@ def vierp():
     session['namen']=huizennamen
     return redirect('huis')
 
+#zet in de huis app-route de 6 persoons huizen neer
 @app.route("/6p")
 def zesp():
     session['ap'] = '6'
@@ -248,6 +250,7 @@ def zesp():
     session['namen']=huizennamen
     return redirect('huis')
 
+#zet in de huis app-route de 8 persoons huizen neer
 @app.route("/8p")
 def achtp():
     huizennamen=[]
@@ -259,45 +262,18 @@ def achtp():
     session['ap'] = '8'
     return redirect('huis')
 
-#contact
+#app route voor contact pagina
 @app.route("/contact")
 def contact():
     return render_template('contact.html')
 
-@app.route('/aanpassen')
-def aanpassen():
-    boeid = int(request.args.get('buttonValue'))
-    for x in (Boekingen.query.join(Huizen,Boekingen.Bungalow_id==Huizen.id).add_columns(Boekingen.id, Huizen.naam, Huizen.type).all()):
-        if boeid == x.id:
-            if x.type==1:
-                beschrijving= four_person_bungalow[x.id-1]
-                info=four_person_info_list
-                naam=x.naam.split()[1]
-            elif x.type == 2:
-                beschrijving= six_person_bungalow[x.id-11]
-                info=six_person_info_list
-                naam=x.naam.split()[1]
-            elif x.type == 3:
-                beschrijving = eight_person_bungalow[x.id-21]
-                info=eight_person_info_list
-                naam=x.naam.split()[1]
-    weken=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52]
-    for x in (Boekingen.query.join(Huizen,Boekingen.Bungalow_id==Huizen.id).add_columns(Boekingen.weeknummer, Boekingen.lengte,Huizen.naam,Huizen.id).all()):
-        print(boeid,x.id)
-        if naam in x.naam:
-            for i in range(x.weeknummer,x.weeknummer+x.lengte):
-                weken.remove(i)
-    form= Reservatie()
-    form.weeknummer.choices=weken
-    session['aanpassen']=(True,boeid)
-   
-    
-    # Do something with the button value, such as displaying it on the page
-    return render_template('huisinfo.html', huisnaam=naam, form=form, beschrijving=beschrijving,info=info,weken=weken)
 
 
+#app route voor het annuleren van boekingen
 @app.route('/annuleren')
 def annuleren():
+    if session['logged_in'] == 0:
+        return redirect('/')
     anuid= int(request.args.get('buttonValue'))
     with app.app_context():
         for i in Boekingen.query.all():
@@ -305,9 +281,12 @@ def annuleren():
                 db.session.delete(i)
             db.session.commit()
         return redirect('boekingen')
-
+    
+#app route voor het laten zien van je boekingen 
 @app.route("/boekingen")
 def boekingen():
+    if session['logged_in'] == 0:
+        return redirect('/')
     with app.app_context():
         if Boekingen.query.all()!=[]:
             boekingen=[]
@@ -330,37 +309,61 @@ def boekingen():
 
         return render_template('boekingen.html')
 
-
+#app route voor de precieze info over het huis wat er gekozen was op huis.html
 @app.route('/huisinfo' ,  methods=['POST','GET'])
 def huisinfo():
     huisnaam = request.args.get('buttonValue')
+    if len(huisnaam.split(',')[0].split(' '))==1:
+        huisnaam=huisnaam.split(',')[0]
+    else:
+        huisnaam=(huisnaam.split(',')[0])
+        huisnaam= huisnaam.split()[1]
+    
+    boid = request.args.get('buttonValue')
+    boid=(boid.split(',')[2])
+
+
+    aanpassen = request.args.get('buttonValue')
+    aanpassen=aanpassen.split(',')[1]
+
+    session['aanpassen']=(aanpassen,boid)
+
     weken=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52]
+    
     for x in (Boekingen.query.join(Huizen,Boekingen.Bungalow_id==Huizen.id).add_columns(Boekingen.id, Boekingen.weeknummer, Boekingen.lengte,Huizen.naam).all()):
         if huisnaam in x.naam:
-            for i in range(x.weeknummer,x.weeknummer+x.lengte):
-                weken.remove(i)
-    session['aanpassen']=(False,0)
+            if x.weeknummer + x.lengte >52:
+                for i in range((x.weeknummer+x.lengte)-52):
+                    if i in weken:
+                        weken.remove(i)
+    
+            for i in range(x.weeknummer-x.lengte,x.weeknummer+x.lengte):
+                if i in weken:
+                    weken.remove(i)
+    
     form= Reservatie()
     form.weeknummer.choices=weken
-    huisnaam = request.args.get('buttonValue')
     session['huisnaam']= huisnaam
-    for x in (Huizen.query.join(Types, Huizen.type == Types.id).add_columns(Huizen.id, Huizen.naam, Types.personen )):
+    for x in (Huizen.query.join(Types, Huizen.type == Types.id).add_columns(Huizen.id, Huizen.naam, Types.personen, Types.weekprijs )):
         if huisnaam in x.naam:
             if x.personen == 4:
                 beschrijving= four_person_bungalow[x.id-1]
                 info=four_person_info_list
+                weekprijs=x.weekprijs
             elif x.personen == 6:
                 beschrijving= six_person_bungalow[x.id-11]
                 info=six_person_info_list
+                weekprijs=x.weekprijs
             elif x.personen == 8:
                 beschrijving = eight_person_bungalow[x.id-21]
                 info=eight_person_info_list
-    # Do something with the button value, such as displaying it on the page
-    return render_template('huisinfo.html', huisnaam=huisnaam, form=form, beschrijving=beschrijving,info=info, weken=weken)
+                weekprijs=x.weekprijs
+    return render_template('huisinfo.html', huisnaam=huisnaam, form=form, beschrijving=beschrijving,info=info, weken=weken, weekprijs=weekprijs)
 
+#Informatie uit het reserveren form halen en die opslaan/aanpassen in de database. 
 @app.route('/reserveren', methods=['POST','GET'])
 def reserveren():
-    if session['aanpassen'][0]== False:
+    if session['aanpassen'][0]== 'False':
         form = Reservatie()
         with app.app_context():
             if Boekingen.query.all()==[]:
@@ -382,7 +385,7 @@ def reserveren():
         db.session.add_all([Boekingen(id, k_id, h_id, wnr,lengte)])
         db.session.commit()
         return redirect('boekingen')
-    elif session['aanpassen'][0]==True:
+    elif session['aanpassen'][0]=='True':
         form= Reservatie()
         wnr=form.weeknummer.data
         lengte=form.lengte.data
@@ -394,15 +397,16 @@ def reserveren():
             db.session.commit()
         return redirect('boekingen')
 
-#Aanmelden en account aanmaken
+#app route voor accounts aanmaken
 @app.route("/aanmelden")
 def inloggen():
-    form = VotingForm()
+    form = Aanmeldvorm()
     return render_template('aanmelden.html', form=form)
 
+#app route voor het invoeren van de gegevens in de database
 @app.route("/aangemeld" , methods=['POST','GET'])
 def aangemeld():
-    form=VotingForm()
+    form=Aanmeldvorm()
     with app.app_context():
         if Klanten.query.all()==[]:
             id=1
@@ -441,7 +445,6 @@ def aangemeld():
     return redirect('/')
 
 
-
-#Runnen
+#app initialiseren 
 if __name__=='__main__':
     app.run(debug=True)

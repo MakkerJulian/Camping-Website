@@ -2,23 +2,25 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+#bungalownamen
 namen = ['De Zonnewijzer', 'De Roos', 'De Hoop', 'De Lelie', 'De Linden', 'De Vlinder',
-                      'De Korenmolen', 'De Erik', 'De Appelboom', 'De Wilg', 'De Berk', 'De Beuk', 'De Esdoorn', 
-                      'De Herberg', 'De Wielewaal', 'De Leeuwerik', 'De Kievit', 'De Nachtegaal', 'De Merel', 'De Zwaluw', 
-                      'De Duif', 'De Koolmees', 'De Putter', 'De Kruisstraat', 'De Klaproos', 'De Tulp', 'De Hyacint', 'De Narcis', 
-                      'De Ridderspoor', 'De Lavendel']
+        'De Korenmolen', 'De Erik', 'De Appelboom', 'De Wilg', 'De Berk', 'De Beuk', 'De Esdoorn', 
+        'De Herberg', 'De Wielewaal', 'De Leeuwerik', 'De Kievit', 'De Nachtegaal', 'De Merel', 'De Zwaluw', 
+        'De Duif', 'De Koolmees', 'De Putter', 'De Kruisstraat', 'De Klaproos', 'De Tulp', 'De Hyacint', 'De Narcis', 
+        'De Ridderspoor', 'De Lavendel']
 
-
+#operating system path
 basedir = os.path.abspath(os.path.dirname(__file__))
-
+#flask configureren
 app = Flask(__name__)
 app.config['SECRET_KEY']='shbfijsbdhsbdsdffggdghkjhgfhvj'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'Bungalow.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+#connection to database
 db=SQLAlchemy(app)
 
-
+#tabbellen aanmaken
+#de 30 huizen
 class Huizen(db.Model):
     __tablename__ = 'Huizen'
     id = db.Column(db.Integer,primary_key=True)
@@ -29,7 +31,7 @@ class Huizen(db.Model):
         self.id=id
         self.naam = naam
         self.type = type
-
+#klantenadministratie
 class Klanten(db.Model):
     __tablename__ = 'Klanten'
     id = db.Column(db.Integer,primary_key=True)
@@ -45,7 +47,7 @@ class Klanten(db.Model):
 
     def __str__(self):
         return f'{self.id}'
-    
+#types bungalows
 class Types(db.Model):
     __tablename__ = 'Types'
     id = db.Column(db.Integer,primary_key=True)
@@ -57,7 +59,7 @@ class Types(db.Model):
         self.personen = personen
         self.weekprijs = weekprijs
 
-#de lastigste
+#Boekingen
 class Boekingen(db.Model):
     __tablename__='Boekingen'
     id=db.Column(db.Integer,primary_key=True)
@@ -74,7 +76,8 @@ class Boekingen(db.Model):
         self.Bungalow_id = bungalow_id 
         self.weeknummer = weeknummer
         self.lengte= lengte
-#Runnen
+
+#runnen
 if __name__=='__main__':
     with app.app_context():
         db.create_all()

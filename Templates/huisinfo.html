@@ -1,8 +1,8 @@
 {% extends "template.html" %}
 
 {% block inhoud %}
+<!-- Informatie over een huis met naam en beschrijving-->
 <img src="{{ url_for('static', filename=huisnaam ~'.png')}}"  class="card-img-top"  style="width: 45%; height: 450px; object-fit:fill; margin-top: 20px; margin-left: 20px; float: left; border: 5px solid black;">
-  
 <div class="accordion" id="accordionPanelsStayOpenExample" style="margin: 20px; width: 50%; height: 80%; float: right;">
     <div class="accordion-item">
       <h2 class="accordion-header">
@@ -22,17 +22,19 @@
           Informatie
         </button>
       </h2>
-      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
         <div class="accordion-body">
           <ul>
             {% for i in info%}
             <li>{{i}}</li>
             {%endfor%}
+            <li>De prijs per week is <strong>€{{weekprijs}}</strong></li>
           </ul>
 
         </div>
       </div>
     </div>
+    <!-- Beschikbaarheid van een huisje-->
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
@@ -40,28 +42,34 @@
         </button>
       </h2>
       <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
-        <div class="accordion-body">
+        <div class="accordion-body" >
           De {{huisnaam}} is nog beschikbaar voor de weken:
           <br>
-          {{weken}}
+          <div style="text-align: center; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+              {% for i in weken %}
+                <h1 style="margin: 5px;"><span class="badge" style="color: white; font-size: 18px; background-color: rgb(60, 113, 74);">{{i}}</span></h1>
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-<div style="position:absolute; bottom: 75px; left: 200px; width: 40%; color: white;">
-<form method="post" action='/reserveren'>
-  {{form.hidden_tag()}}
-  <br>
-  {{form.weeknummer.label(class="col-sm-2 col-form-label", style="width:40%;")}} 
-  <br>
-  {{ form.weeknummer(class="form-select", style="width:40%;") }}
-  <br>
-  {{form.lengte.label(class="col-sm-2 col-form-label", style="width:40%;")}} 
-  <br>
-  {{form.lengte(class="form-select", style="width:40%;")}}
-  <br>
-  <input type = "submit" class = "btn btn-primary" value="Boeken" style="width:40%;">
-</form>
+  <!-- Boeken knop en form-->
+<div class="container" style="position:absolute; bottom: 40px; left: 20px; width: 45%; height: 21%; color: black; background-color: white;">
+  <form method="post" action='/reserveren'>
+    {{form.hidden_tag()}}
+    <div style="display: inline-block; width: 45%; margin-left: 28px; text-align: center;">
+      {{form.weeknummer.label(class="col-form-label")}} 
+      {{form.weeknummer(class="form-select") }}
+    </div>
+    <div style="display: inline-block; width: 45%; text-align: center;">
+      {{form.lengte.label(class="col-form-label")}} 
+      {{form.lengte(class="form-select")}}
+    </div>
+    <input type = "submit" class = "btn btn-primary" value="Boeken" style="position:relative; top: 18px; left: 225px; width: 30%; height: 30%;">
+  </form>
 </div>
 
-  {% endblock %}
+{% endblock %}
