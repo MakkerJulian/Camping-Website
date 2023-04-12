@@ -11,10 +11,11 @@
 
     <!--Een lijst met boekingen-->
     <ul class="list-group" style="margin: 20px;">  
-        <li class="list-group-item list-group-item-info">Boekingen:</li>
         {% if session['boeks'] == [] %}
-            <a>U heeft geen boekingen</a>
+        <li class="list-group-item list-group-item-info">Boekingen: U heeft geen boekingen</li>
         {% else %}
+        <li class="list-group-item list-group-item-info">Boekingen:</li>
+
             {% for i in session['boeks'] %}
                 <a class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">

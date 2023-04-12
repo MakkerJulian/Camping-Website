@@ -363,6 +363,7 @@ def huisinfo():
 #Informatie uit het reserveren form halen en die opslaan/aanpassen in de database. 
 @app.route('/reserveren', methods=['POST','GET'])
 def reserveren():
+
     if session['aanpassen'][0]== 'False':
         form = Reservatie()
         with app.app_context():
