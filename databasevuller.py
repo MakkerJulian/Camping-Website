@@ -31,6 +31,7 @@ class Huizen(db.Model):
         self.id=id
         self.naam = naam
         self.type = type
+
 #klantenadministratie
 class Klanten(db.Model):
     __tablename__ = 'Klanten'
@@ -47,7 +48,8 @@ class Klanten(db.Model):
 
     def __str__(self):
         return f'{self.id}'
-#types bungalows
+    
+#type bungalows
 class Types(db.Model):
     __tablename__ = 'Types'
     id = db.Column(db.Integer,primary_key=True)

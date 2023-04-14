@@ -1,0 +1,16 @@
+In dit mapje staan de gebruikelijke bestanden voor een flask Applicatie. 
+
+In het mapje static staan alle foto's en 1 css bestand die de achtergrond van elke pagina regelt.
+
+In het mapje templates staan alle HTML pagina's. Alle pagina's zijn een extent van template.html behalve dat bestand zelf. 
+Hier zit de navigatiebalk in, de achtergrond, de header en het blockje inhoud voor de extends. 
+
+Bungalow.sqlite is (indien aangemaakt) de database waar alle boekingen, huizen, types en klanten worden onthouden.
+
+Het main bestand is bungalowpark.py 
+
+Om de database aan te maken en met de standaard gegevens te vullen moet databasevuller gerunt worden. 
+
+Delete.py is het bestand dat gerunt kan worden als je alle boekingen en klanten verwijderd wil hebben. 
+Als u alles wilt verwijderen is het sneller om de database te verwijderen en databasevuller weer te runnen.
+
