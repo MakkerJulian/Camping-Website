@@ -187,12 +187,12 @@ def ingelogd():
     email=form.email.data
     wachtwoord = form.wachtwoord.data
 
-    if email == '' or wachtwoord=='':
+    '''if email == '' or wachtwoord=='':
         flash('Vul alle velden in om in te loggen')
         return redirect('inloggen')
     elif '@' not in email or '.' not in email:
         flash('Geen geldig mailadres opgegeven')
-        return redirect('inloggen')
+        return redirect('inloggen')'''
     
     with app.app_context():
         for x in (Klanten.query.all()):

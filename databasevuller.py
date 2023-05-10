@@ -13,6 +13,7 @@ namen = ['De Zonnewijzer', 'De Roos', 'De Hoop', 'De Lelie', 'De Linden', 'De Vl
 basedir = os.path.abspath(os.path.dirname(__file__))
 #flask configureren
 app = Flask(__name__)
+app.config['WTF_CSRF_ENABLED'] = False
 app.config['SECRET_KEY']='shbfijsbdhsbdsdffggdghkjhgfhvj'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'Bungalow.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
